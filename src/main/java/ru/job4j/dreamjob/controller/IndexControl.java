@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>IndexControl class.</p>
- *
+ * <p>IndexControl class. Spring boot index controller</p>
+ * return allways text "Greetings from Spring Boot!"
  * @author nikez
  * @version $Id: $Id
  */
