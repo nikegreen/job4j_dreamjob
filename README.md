@@ -206,3 +206,58 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 
 </project>
 
+---
+
+Элементы конфигурации мы рассмотрим в другой задаче. Сейчас наша задачу запустить минимальное приложение.
+
+3. Создайте класс ru.job4j.dreamjob.Main
+
+package ru.job4j.dreamjob;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Main {
+public static void main(String[] args) {
+SpringApplication.run(Main.class, args);
+}
+}
+4. Создайте класс ru.job4j.dreamjob.controller.IndexControl.
+
+package ru.job4j.dreamjob.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class IndexControl {
+
+    @GetMapping("/index")
+    public String index() {
+        return "Greetings from Spring Boot!";
+    }
+}
+5. Запустить метод main
+
+
+
+6. Откройте браузер по ссылке http://localhost:8080/index
+
+
+
+В методе main происходит запуск сервера Tomcat. Сервер Tomcat встроен в Spring boot.
+
+
+
+Задание.
+
+1. Подключите к проекту Spring boot.
+
+2. Запустите приложение и убедитесь, что в браузере доступна ваша страница.
+
+3. Загрузите изменения в репозиторий. Оставьте ссылку на коммит.
+
+---
+
+
