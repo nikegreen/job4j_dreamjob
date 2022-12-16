@@ -1,7 +1,7 @@
 package ru.job4j.dreamjob.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>IndexControl class. Spring boot index controller</p>
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author nikez
  * @version $Id: $Id
  */
-@RestController
+@Controller
 public class IndexControl {
 
     /**
@@ -19,6 +19,6 @@ public class IndexControl {
      */
     @GetMapping("/index")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return "index";
     }
 }
