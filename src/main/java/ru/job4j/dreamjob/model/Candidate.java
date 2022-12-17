@@ -1,12 +1,15 @@
 package ru.job4j.dreamjob.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Candidate {
     private int id;
     private String name;
     private String desc;
-    private String created;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime created;
 
     public Candidate() {
 
@@ -16,7 +19,7 @@ public class Candidate {
             int id,
             String name,
             String desc,
-            String created
+            LocalDateTime created
     ) {
         this.id = id;
         this.name = name;
@@ -48,11 +51,11 @@ public class Candidate {
         this.desc = desc;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
