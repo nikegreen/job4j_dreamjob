@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
           integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-  <title>Работа мечты!</title>
+  <title>Работа мечты</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,33 +26,30 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
-      <a class="nav-item nav-link active" href="#">Вакансии <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
       <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
       <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
-      <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+      <a class="nav-item nav-link active" href="#">Добавить кандидата <span class="sr-only">(current)</span></a>
     </div>
   </div>
 </nav>
 <div class="container">
   <div class="row">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Описание</th>
-        <th scope="col">Дата создания</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr th:each="post: ${posts}">
-          <td th:text="${post.id}" />
-          <td th:text="${post.name}" />
-          <td th:text="${post.description}" />
-          <td th:text="${#temporals.format(post.created, 'dd-MM-yyyy HH:mm')}" />
-        </tr>
-      </tbody>
-    </table>
+    <div class="card" style="width: 100%">
+      <div class="card-header">
+        Новый кандидат.
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label>ФИО
+              <input type="text" class="form-control">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -63,10 +60,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
-      <a class="nav-item nav-link active" href="#">Вакансии <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
       <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
       <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
-      <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+      <a class="nav-item nav-link active" href="#">Добавить кандидата <span class="sr-only">(current)</span></a>
     </div>
   </div>
 </nav>
