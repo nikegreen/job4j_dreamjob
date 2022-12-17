@@ -14,7 +14,7 @@ public class CandidateController {
     private final CandidateStore candidateStore = CandidateStore.instOf();
 
     @GetMapping("/candidates")
-    public String posts(Model model) {
+    public String candidates(Model model) {
         model.addAttribute("candidates", candidateStore.findAll());
         return "candidates";
     }
