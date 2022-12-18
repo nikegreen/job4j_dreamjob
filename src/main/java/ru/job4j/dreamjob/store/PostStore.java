@@ -38,4 +38,12 @@ public class PostStore {
     public int getNextId() {
         return counterId.incrementAndGet();
     }
+
+    public Object findById(int id) {
+        return posts.get(id);
+    }
+
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
+    }
 }
