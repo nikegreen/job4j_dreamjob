@@ -24,7 +24,7 @@ public class CandidateController {
         model.addAttribute(
                 "candidate",
                 new Candidate(
-                        0,
+                        candidateStore.getNextId(),
                         "Заполните ФИО",
                         "Заполните описание",
                         LocalDateTime.now()
