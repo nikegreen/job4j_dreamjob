@@ -33,6 +33,7 @@ public class PostController {
                 new Post(
                         store.getNextId(),
                         "Заполните название",
+                        true,
                         "Заполните описание",
                         LocalDateTime.now()
                 )

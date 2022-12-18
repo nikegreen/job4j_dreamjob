@@ -17,9 +17,36 @@ public class PostStore {
     private final AtomicInteger counterId = new AtomicInteger(0);
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "desc1", LocalDateTime.of(2014, 9, 19, 14, 5)));
-        posts.put(2, new Post(2, "Middle Java Job", "desc2", LocalDateTime.of(2014, 9, 19, 14, 6)));
-        posts.put(3, new Post(3, "Senior Java Job", "desc3", LocalDateTime.of(2014, 9, 19, 14, 7)));
+        posts.put(
+                1,
+                new Post(
+                        1,
+                        "Junior Java Job",
+                        false,
+                        "desc1",
+                        LocalDateTime.of(2014, 9, 19, 14, 5)
+                )
+        );
+        posts.put(
+                2,
+                new Post(
+                        2,
+                        "Middle Java Job",
+                        false,
+                        "desc2",
+                        LocalDateTime.of(2014, 9, 19, 14, 6)
+                )
+        );
+        posts.put(
+                3,
+                new Post(
+                        3,
+                        "Senior Java Job",
+                        false,
+                        "desc3",
+                        LocalDateTime.of(2014, 9, 19, 14, 7)
+                )
+        );
         counterId.addAndGet(3);
     }
 

@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Post {
     private int id;
     private String name;
+    private boolean visible;
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime created;
@@ -14,9 +15,10 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, String name, String description, LocalDateTime created) {
+    public Post(int id, String name, boolean visible, String description, LocalDateTime created) {
         this.id = id;
         this.name = name;
+        this.visible = visible;
         this.description = description;
         this.created = created;
     }
@@ -35,6 +37,14 @@ public class Post {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public String getDescription() {
