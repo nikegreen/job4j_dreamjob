@@ -48,4 +48,16 @@ public class CandidateStore {
     public int getNextId() {
         return counterId.incrementAndGet();
     }
+
+    public void add(Candidate candidate) {
+        candidates.put(candidate.getId(), candidate);
+    }
+
+    public Object findById(int id) {
+        return candidates.get(id);
+    }
+
+    public void update(Candidate candidate) {
+        candidates.replace(candidate.getId(), candidate);
+    }
 }
