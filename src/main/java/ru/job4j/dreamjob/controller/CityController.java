@@ -24,11 +24,6 @@ public class CityController {
         return "cities";
     }
 
-//    @GetMapping("/formAddPost")
-//    public String formAddPost(Model model) {
-//        model.addAttribute("cities", cityService.getAllCities());
-//        return "addPost";
-//    }
     @GetMapping("/formAddCity")
     public String addCity(Model model) {
         model.addAttribute(
