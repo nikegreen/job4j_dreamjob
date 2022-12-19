@@ -25,7 +25,7 @@ public class PostController {
         model.addAttribute(
                 "post",
                 new Post(
-                        postStore.getNextId(),
+                        1,
                         "Заполните название",
                         "Заполните описание",
                         LocalDateTime.now()
