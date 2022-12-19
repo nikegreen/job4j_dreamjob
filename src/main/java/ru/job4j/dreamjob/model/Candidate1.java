@@ -1,31 +1,32 @@
 package ru.job4j.dreamjob.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Candidate {
+public class Candidate1 {
     private int id;
     private String name;
-    private City city;
+    private int city;
     private String desc;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime created;
 
-    public Candidate() {
+    public Candidate1() {
 
     }
 
-    public Candidate(
+    public Candidate1(
             int id,
             String name,
-            City city,
+            int cityId,
             String desc,
             LocalDateTime created
     ) {
         this.id = id;
         this.name = name;
-        this.city = city;
+        this.city = cityId;
         this.desc = desc;
         this.created = created;
     }
@@ -46,11 +47,11 @@ public class Candidate {
         this.name = name;
     }
 
-    public City getCity() {
+    public int getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(int city) {
         this.city = city;
     }
 
@@ -78,7 +79,7 @@ public class Candidate {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Candidate candidate = (Candidate) o;
+        Candidate1 candidate = (Candidate1) o;
         return id == candidate.id;
     }
 

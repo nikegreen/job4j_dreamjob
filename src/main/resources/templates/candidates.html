@@ -31,6 +31,8 @@
                 <a class="nav-item nav-link" th:href="@{/formAddPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link active" href="#">Кандидаты <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
+                <a class="nav-item nav-link" th:href="@{/cities}">Города</a>
+                <a class="nav-item nav-link" th:href="@{/formAddCity}">Добавить город</a>
             </div>
         </div>
     </nav>
@@ -40,6 +42,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Город</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Дата создания</th>
             </tr>
@@ -53,6 +56,7 @@
                         </a>
                         <span th:text="${candidate.name}"></span>
                     </td>
+                    <td th:text="${candidate.city.name}" />
                     <td th:text="${candidate.desc}" />
                     <td th:text="${#temporals.format(candidate.created, 'dd-MM-yyyy HH:mm')}" />
                 </tr>

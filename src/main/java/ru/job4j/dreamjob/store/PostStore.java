@@ -2,7 +2,9 @@ package ru.job4j.dreamjob.store;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
+import ru.job4j.dreamjob.service.PostService;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -17,12 +19,14 @@ public class PostStore {
     private final AtomicInteger counterId = new AtomicInteger(0);
 
     private PostStore() {
+        City city = new City(1, "Москва");
         posts.put(
                 1,
                 new Post(
                         1,
                         "Junior Java Job",
                         false,
+                        city,
                         "desc1",
                         LocalDateTime.of(2014, 9, 19, 14, 5)
                 )
@@ -33,6 +37,7 @@ public class PostStore {
                         2,
                         "Middle Java Job",
                         false,
+                        city,
                         "desc2",
                         LocalDateTime.of(2014, 9, 19, 14, 6)
                 )
@@ -43,6 +48,7 @@ public class PostStore {
                         3,
                         "Senior Java Job",
                         false,
+                        city,
                         "desc3",
                         LocalDateTime.of(2014, 9, 19, 14, 7)
                 )
@@ -62,7 +68,7 @@ public class PostStore {
         return counterId.incrementAndGet();
     }
 
-    public Object findById(int id) {
+    public Post findById(int id) {
         return posts.get(id);
     }
 

@@ -1,34 +1,33 @@
 package ru.job4j.dreamjob.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Post implements Serializable {
+public class Post1 implements Serializable {
     private int id;
     private String name;
     private boolean visible;
-    private City city;
+    private int city;
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime created;
 
-    public Post() {
+    public Post1() {
     }
 
-    public Post(
+    public Post1(
             int id,
             String name,
             boolean visible,
-            City city,
+            int cityId,
             String description,
             LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.visible = visible;
-        this.city = city;
+        this.city = cityId;
         this.description = description;
         this.created = created;
     }
@@ -57,6 +56,14 @@ public class Post implements Serializable {
         this.visible = visible;
     }
 
+    public int getCity() {
+        return city;
+    }
+
+    public void setCity(int city) {
+        this.city = city;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -73,14 +80,6 @@ public class Post implements Serializable {
         this.created = created;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -89,7 +88,7 @@ public class Post implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Post post = (Post) o;
+        Post1 post = (Post1) o;
         return id == post.id;
     }
 
@@ -104,7 +103,7 @@ public class Post implements Serializable {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", visible=" + visible
-                + ", city={id=" + city.getId() + ", name=" + city.getName() + "}"
+                + ", city(id)=" + city
                 + ", description='" + description + '\''
                 + ", created=" + created + '}';
     }
