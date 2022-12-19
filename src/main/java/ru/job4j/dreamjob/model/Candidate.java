@@ -11,6 +11,7 @@ public class Candidate {
     private String desc;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime created;
+    private byte[] photo;
 
     public Candidate() {
 
@@ -21,13 +22,15 @@ public class Candidate {
             String name,
             City city,
             String desc,
-            LocalDateTime created
+            LocalDateTime created,
+            byte[] photo
     ) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.desc = desc;
         this.created = created;
+        this.photo = photo;
     }
 
     public int getId() {
@@ -68,6 +71,14 @@ public class Candidate {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
