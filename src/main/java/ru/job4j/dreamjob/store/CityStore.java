@@ -30,10 +30,11 @@ public class CityStore {
     }
 
     public void add(City city) {
+        city.setId(getNextId());
         cities.put(city.getId(), city);
     }
 
-    public int getNextId() {
+    private int getNextId() {
         return counterId.incrementAndGet();
     }
 

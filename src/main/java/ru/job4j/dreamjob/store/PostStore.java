@@ -61,10 +61,11 @@ public class PostStore {
     }
 
     public void add(Post post) {
+        post.setId(getNextId());
         posts.put(post.getId(), post);
     }
 
-    public int getNextId() {
+    private int getNextId() {
         return counterId.incrementAndGet();
     }
 

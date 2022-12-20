@@ -24,10 +24,6 @@ public class CandidateService {
         store.add(candidate);
     }
 
-    public int getNextId() {
-        return store.getNextId();
-    }
-
     public Candidate findById(int id) {
         return store.findById(id);
     }

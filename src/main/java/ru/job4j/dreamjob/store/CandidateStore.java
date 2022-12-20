@@ -47,11 +47,12 @@ public class CandidateStore {
         return candidates.values();
     }
 
-    public int getNextId() {
+    private int getNextId() {
         return counterId.incrementAndGet();
     }
 
     public void add(Candidate candidate) {
+        candidate.setId(getNextId());
         candidates.put(candidate.getId(), candidate);
     }
 

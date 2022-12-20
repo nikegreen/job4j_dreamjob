@@ -25,10 +25,6 @@ public class PostService {
         store.add(post);
     }
 
-    public int getNextId() {
-        return store.getNextId();
-    }
-
     public Post findById(int id) {
         return store.findById(id);
     }

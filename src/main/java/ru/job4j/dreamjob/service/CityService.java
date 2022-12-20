@@ -22,10 +22,6 @@ public class CityService {
         return store.findById(id);
     }
 
-    public int getNextId() {
-        return store.getNextId();
-    }
-
     public void add(City city) {
         store.add(city);
     }

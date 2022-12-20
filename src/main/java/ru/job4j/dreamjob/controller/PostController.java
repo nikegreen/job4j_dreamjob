@@ -37,7 +37,7 @@ public class PostController {
         model.addAttribute(
                 "post",
                 new Post1(
-                        this.postService.getNextId(),
+                        0,
                         "Заполните название",
                         true,
                         1,
