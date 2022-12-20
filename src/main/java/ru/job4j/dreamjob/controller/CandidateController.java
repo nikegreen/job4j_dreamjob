@@ -5,18 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Candidate1;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
-
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -79,8 +75,12 @@ public class CandidateController {
                                   @RequestParam("city.id") int cityId,
                                   @RequestParam("file") MultipartFile file
     ) throws IOException {
-        if (!file.isEmpty()) {
-            candidate.setPhoto(candidate.getPhoto(file.getBytes());
+        if (file.isEmpty()) {
+            candidate.setPhoto(
+                    candidateService.findById(candidate.getId()).getPhoto()
+            );
+        } else {
+            candidate.setPhoto(file.getBytes());
         }
         candidate.setCity(cityService.findById(cityId));
         candidateService.update(candidate);
@@ -88,7 +88,8 @@ public class CandidateController {
     }
 
     @GetMapping("/photoCandidate/{candidateId}")
-    public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId) {
+    public ResponseEntity<Resource> photoCandidate(
+            @PathVariable("candidateId") Integer candidateId) {
         Candidate candidate = candidateService.findById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
