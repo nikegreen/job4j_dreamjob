@@ -2,13 +2,8 @@ package ru.job4j.dreamjob.controller;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.dreamjob.model.City;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.model.Post1;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
 import java.time.LocalDateTime;
@@ -36,11 +31,11 @@ public class PostController {
     public String addPost(Model model) {
         model.addAttribute(
                 "post",
-                new Post1(
+                new Post(
                         0,
                         "Заполните название",
                         true,
-                        1,
+                        cityService.findById(1),
                         "Заполните описание",
                         LocalDateTime.now()
                 )
@@ -50,18 +45,9 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post1 post1) {
-        System.out.println("========> create post (id) ->" + post1.toString());
-        City city = cityService.findById(post1.getCity());
-        Post post = new Post(
-                post1.getId(),
-                post1.getName(),
-                post1.getVisible(),
-                city,
-                post1.getDescription(),
-                post1.getCreated()
-        );
-        System.out.println("========> create post      ->" + post.toString());
+    public String createPost(@ModelAttribute Post post,
+                             @RequestParam("city.id") int id) {
+        post.setCity(cityService.findById(id));
         this.postService.add(post);
         return "redirect:/posts";
     }
@@ -69,33 +55,17 @@ public class PostController {
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         Post post = this.postService.findById(id);
-        model.addAttribute(
-                "post",
-                new Post1(
-                        id,
-                        post.getName(),
-                        post.getVisible(),
-                        post.getCity().getId(),
-                        post.getDescription(),
-                        post.getCreated()
-                )
-        );
+        model.addAttribute("post", post);
         model.addAttribute("cities", cityService.getAllCities());
+        model.addAttribute("city.id", post.getCity().getId());
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post1 post1) {
-        this.postService.update(
-                new Post(
-                        post1.getId(),
-                        post1.getName(),
-                        post1.getVisible(),
-                        cityService.findById(post1.getCity()),
-                        post1.getDescription(),
-                        post1.getCreated()
-                )
-        );
+    public String updatePost(@ModelAttribute Post post,
+                             @RequestParam("city.id") int id) {
+        post.setCity(cityService.findById(id));
+        this.postService.update(post);
         return "redirect:/posts";
     }
 }
