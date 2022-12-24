@@ -57,7 +57,6 @@ public class PostDBStore {
             ps.setBoolean(2, post.getVisible());
             ps.setInt(3, post.getCity().getId());
             ps.setString(4, post.getDescription());
-            //String str = post.getCreated().format(DTF);
             ps.setTimestamp(5, Timestamp.valueOf(post.getCreated()));
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
