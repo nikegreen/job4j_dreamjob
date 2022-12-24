@@ -35,7 +35,7 @@ public class PostController {
                         0,
                         "Заполните название",
                         true,
-                        cityService.findById(1),
+                        null, //cityService.findById(1),
                         "Заполните описание",
                         LocalDateTime.now()
                 )
@@ -57,7 +57,6 @@ public class PostController {
         Post post = this.postService.findById(id);
         model.addAttribute("post", post);
         model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("city.id", post.getCity().getId());
         return "updatePost";
     }
 
