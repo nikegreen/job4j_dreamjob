@@ -35,7 +35,7 @@ public class PostController {
                         0,
                         "Заполните название",
                         true,
-                        null, //cityService.findById(1),
+                        null,
                         "Заполните описание",
                         LocalDateTime.now()
                 )
