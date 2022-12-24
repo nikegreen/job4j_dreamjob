@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PostDBStore {
-    private static final Logger LOGGER = Logger.getLogger(PostDBStore.class);
+public class PostDbStore {
+    private static final Logger LOGGER = Logger.getLogger(PostDbStore.class);
     private final BasicDataSource pool;
 
-    public PostDBStore(BasicDataSource pool) {
+    public PostDbStore(BasicDataSource pool) {
         this.pool = pool;
     }
 
@@ -106,7 +106,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("find by id=" + id + ". " + e.getMessage());
+            LOGGER.error("find post by id=" + id + ". " + e.getMessage());
         }
         return null;
     }
