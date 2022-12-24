@@ -75,13 +75,11 @@ public class CandidateController {
                                   @RequestParam("city.id") int cityId,
                                   @RequestParam("file") MultipartFile file
     ) throws IOException {
-        if (file.isEmpty()) {
-            candidate.setPhoto(
-                    candidateService.findById(candidate.getId()).getPhoto()
-            );
-        } else {
-            candidate.setPhoto(file.getBytes());
-        }
+        candidate.setPhoto(
+                file.isEmpty()
+                        ? candidateService.findById(candidate.getId()).getPhoto()
+                        : file.getBytes()
+        );
         candidate.setCity(cityService.findById(cityId));
         candidateService.update(candidate);
         return "redirect:/candidates";
