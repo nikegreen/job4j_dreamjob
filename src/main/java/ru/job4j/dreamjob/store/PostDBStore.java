@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Repository
 public class PostDBStore {
-
+    private static final Logger LOGGER = Logger.getLogger(PostDBStore.class);
     private final BasicDataSource pool;
 
     public PostDBStore(BasicDataSource pool) {
@@ -40,7 +41,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("find all Post. " + e.getMessage());
         }
         return posts;
     }
@@ -65,7 +66,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("add post=" + post + ". " + e.getMessage());
         }
         return post;
     }
@@ -84,7 +85,7 @@ public class PostDBStore {
             ps.setInt(6, post.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Update post=" + post + ". " + e.getMessage());
         }
     }
 
@@ -106,7 +107,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("find by id=" + id + ". " + e.getMessage());
         }
         return null;
     }

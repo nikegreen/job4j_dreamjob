@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import java.util.Properties;
  */
 @SpringBootApplication
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     private Properties loadDbProperties() {
         Properties cfg = new Properties();
@@ -29,11 +31,13 @@ public class Main {
         )) {
             cfg.load(io);
         } catch (Exception e) {
+            LOGGER.error("load 'db.properties'." + e.getMessage());
             throw new IllegalStateException(e);
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (Exception e) {
+            LOGGER.error("load cfg 'jdbc.driver'" + e.getMessage());
             throw new IllegalStateException(e);
         }
         return cfg;
@@ -62,9 +66,4 @@ public class Main {
         SpringApplication.run(Main.class, args);
         System.out.println("Go to http://localhost:8080/index");
     }
-    /*
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
-    */
 }
