@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PostDBStore {
-    private static final Logger LOGGER = Logger.getLogger(PostDBStore.class);
+public class PostDbStore {
+    private static final Logger LOGGER = Logger.getLogger(PostDbStore.class);
     private static final String SQL_FIND_ALL = "SELECT * FROM post";
     private static final String SQL_ADD = "INSERT INTO "
             + "post(name, visible, city_id, description, created) "
