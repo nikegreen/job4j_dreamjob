@@ -31,13 +31,13 @@ public class Main {
         )) {
             cfg.load(io);
         } catch (Exception e) {
-            LOGGER.error("load 'db.properties'." + e.getMessage());
+            LOGGER.error("load 'db.properties'." + e.getMessage(), e);
             throw new IllegalStateException(e);
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (Exception e) {
-            LOGGER.error("load cfg 'jdbc.driver'" + e.getMessage());
+            LOGGER.error("load cfg 'jdbc.driver'" + e.getMessage(), e);
             throw new IllegalStateException(e);
         }
         return cfg;
