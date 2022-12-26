@@ -14,9 +14,9 @@ public class UserDbStore {
     private static final Logger LOGGER = Logger.getLogger(PostDbStore.class);
     private static final String SQL_FIND_ALL = "SELECT * FROM users";
     private static final String SQL_ADD =
-            "INSERT INTO users(email, password) VALUES (?,?)";
+            "INSERT INTO users(email, password, name) VALUES (?,?,?)";
     private static final String SQL_UPDATE =
-            "UPDATE users SET email=?, password=? WHERE id = ?";
+            "UPDATE users SET email=?, password=?, name=? WHERE id = ?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
 
     private static final String SQL_FIND_BY_EMAIL_PASSWORD =
@@ -53,6 +53,7 @@ public class UserDbStore {
                      SQL_ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
+            ps.setString(3, user.getName());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -72,7 +73,8 @@ public class UserDbStore {
                      SQL_UPDATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
-            ps.setInt(3, user.getId());
+            ps.setString(3, user.getName());
+            ps.setInt(4, user.getId());
             ps.execute();
         } catch (Exception e) {
             LOGGER.error("Update user=" + user + ". " + e.getMessage(), e);
@@ -100,7 +102,8 @@ public class UserDbStore {
         return new User(
                 it.getInt("id"),
                 it.getString("email"),
-                it.getString("password")
+                it.getString("password"),
+                it.getString("name")
         );
     }
 

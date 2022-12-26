@@ -223,7 +223,7 @@ public static void main(String[] args) {
 SpringApplication.run(Main.class, args);
 }
 }
-4. Создайте класс ru.job4j.dreamjob.controller.IndexControl.
+4. Создайте класс ru.job4j.dreamjob.controller.IndexController.
 
 package ru.job4j.dreamjob.controller;
 

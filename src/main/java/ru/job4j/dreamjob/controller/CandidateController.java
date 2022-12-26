@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
 import org.springframework.core.io.ByteArrayResource;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -28,14 +31,20 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("candidates", candidateService.findAll());
         model.addAttribute("cities", cityService.getAllCities());
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
         model.addAttribute(
                 "candidate",
                 new Candidate(
@@ -48,6 +57,12 @@ public class CandidateController {
                 )
         );
         model.addAttribute("cities", cityService.getAllCities());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "addCandidate";
     }
 
@@ -62,11 +77,19 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model,
+                                      @PathVariable("candidateId") int id,
+                                      HttpSession session) {
         Candidate candidate = candidateService.findById(id);
         model.addAttribute("candidate", candidate);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("city.id", candidate.getCity().getId());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "updateCandidate";
     }
 

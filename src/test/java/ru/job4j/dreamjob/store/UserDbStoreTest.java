@@ -37,93 +37,104 @@ class UserDbStoreTest {
     @Test
     public void whenCreateUserAndFindById() {
         UserDbStore store = new UserDbStore(dataSource);
-        User user = new User(0, "m1@mail.ru", "1234");
+        User user = new User(0, "m1@mail.ru", "1234", "name");
         user = store.add(user).orElse(null);
         User userInDb = store.findById(user.getId()).orElse(null);
         assertThat(userInDb.getId()).isEqualTo(user.getId());
         assertThat(userInDb.getEmail()).isEqualTo(user.getEmail());
         assertThat(userInDb.getPassword()).isEqualTo(user.getPassword());
+        assertThat(userInDb.getName()).isEqualTo(user.getName());
     }
 
     @Test
     public void whenCreate2UserAndFindById() {
         UserDbStore store = new UserDbStore(dataSource);
-        User user1 = new User(0, "m1@mail.ru", "1234");
+        User user1 = new User(0, "m1@mail.ru", "1234", "name1");
         user1 = store.add(user1).orElse(null);
         User userInDb1 = store.findById(user1.getId()).orElse(null);
         assertThat(userInDb1.getId()).isEqualTo(user1.getId());
         assertThat(userInDb1.getEmail()).isEqualTo(user1.getEmail());
         assertThat(userInDb1.getPassword()).isEqualTo(user1.getPassword());
+        assertThat(userInDb1.getName()).isEqualTo(user1.getName());
 
-        User user2 = new User(0, "m2@mail.ru", "1234");
+        User user2 = new User(0, "m2@mail.ru", "1234", "name2");
         user2 = store.add(user2).orElse(null);
         User userInDb2 = store.findById(user2.getId()).orElse(null);
         assertThat(userInDb2.getId()).isEqualTo(user2.getId());
         assertThat(userInDb2.getEmail()).isEqualTo(user2.getEmail());
         assertThat(userInDb2.getPassword()).isEqualTo(user2.getPassword());
+        assertThat(userInDb2.getName()).isEqualTo(user2.getName());
     }
 
     @Test
     public void whenCreate2UserAndFindAll() {
         UserDbStore store = new UserDbStore(dataSource);
         int count = store.findAll().size();
-        User user1 = new User(0, "m1@mail.ru", "1234");
+        User user1 = new User(0, "m1@mail.ru", "1234", "name1");
         user1 = store.add(user1).orElse(null);
-        User user2 = new User(0, "m2@mail.ru", "1234");
+        User user2 = new User(0, "m2@mail.ru", "1234", "name2");
         user2 = store.add(user2).orElse(null);
         List<User> list = store.findAll();
         User userInDb1 = list.get(count);
         assertThat(userInDb1.getId()).isEqualTo(user1.getId());
         assertThat(userInDb1.getEmail()).isEqualTo(user1.getEmail());
         assertThat(userInDb1.getPassword()).isEqualTo(user1.getPassword());
+        assertThat(userInDb1.getName()).isEqualTo(user1.getName());
         User userInDb2 = list.get(++count);
         assertThat(userInDb2.getId()).isEqualTo(user2.getId());
         assertThat(userInDb2.getEmail()).isEqualTo(user2.getEmail());
         assertThat(userInDb2.getPassword()).isEqualTo(user2.getPassword());
+        assertThat(userInDb2.getName()).isEqualTo(user2.getName());
     }
 
     @Test
     public void whenCreate2PostAndFindByIdAndUpdate() {
         UserDbStore store = new UserDbStore(dataSource);
-        User user1 = new User(0, "m1@mail.ru", "1234");
+        User user1 = new User(0, "m1@mail.ru", "1234", "name1");
         user1 = store.add(user1).orElse(null);
         User userInDb1 = store.findById(user1.getId()).orElse(null);
         assertThat(userInDb1.getId()).isEqualTo(user1.getId());
         assertThat(userInDb1.getEmail()).isEqualTo(user1.getEmail());
         assertThat(userInDb1.getPassword()).isEqualTo(user1.getPassword());
-        User user2 = new User(0, "m2@mail.ru", "1234");
+        assertThat(userInDb1.getName()).isEqualTo(user1.getName());
+        User user2 = new User(0, "m2@mail.ru", "1234", "name2");
         user2 = store.add(user2).orElse(null);
         User userInDb2 = store.findById(user2.getId()).orElse(null);
         assertThat(userInDb2.getId()).isEqualTo(user2.getId());
         assertThat(userInDb2.getEmail()).isEqualTo(user2.getEmail());
         assertThat(userInDb2.getPassword()).isEqualTo(user2.getPassword());
+        assertThat(userInDb2.getName()).isEqualTo(user2.getName());
         user1.setEmail("new1@mail.ru");
         user1.setPassword("new12345");
+        user1.setName("newName1");
         store.update(user1);
         userInDb1 = store.findById(user1.getId()).orElse(null);
         assertThat(userInDb1.getId()).isEqualTo(user1.getId());
         assertThat(userInDb1.getEmail()).isEqualTo(user1.getEmail());
         assertThat(userInDb1.getPassword()).isEqualTo(user1.getPassword());
+        assertThat(userInDb1.getName()).isEqualTo(user1.getName());
         user2.setEmail("new2@mail.ru");
         user2.setPassword("new12345");
+        user2.setName("newName2");
         store.update(user2);
         userInDb2 = store.findById(user2.getId()).orElse(null);
         assertThat(userInDb2.getId()).isEqualTo(user2.getId());
         assertThat(userInDb2.getEmail()).isEqualTo(user2.getEmail());
         assertThat(userInDb2.getPassword()).isEqualTo(user2.getPassword());
+        assertThat(userInDb2.getName()).isEqualTo(user2.getName());
     }
 
     @Test
     public void whenCreate2EqualUserAndFindById() {
         UserDbStore store = new UserDbStore(dataSource);
-        User user1 = new User(0, "m1@mail.ru", "1234");
+        User user1 = new User(0, "m1@mail.ru", "1234", "name1");
         user1 = store.add(user1).orElse(null);
         User userInDb1 = store.findById(user1.getId()).orElse(null);
         assertThat(userInDb1.getId()).isEqualTo(user1.getId());
         assertThat(userInDb1.getEmail()).isEqualTo(user1.getEmail());
         assertThat(userInDb1.getPassword()).isEqualTo(user1.getPassword());
-
-        User user2 = new User(0, "m1@mail.ru", "1234");
+        assertThat(userInDb1.getName()).isEqualTo(user1.getName());
+        User user2 = new User(0, "m1@mail.ru", "1234", "name1");
         user2 = store.add(user2).orElse(null);
         assertThat(user2).isNull();
     }
@@ -131,7 +142,7 @@ class UserDbStoreTest {
     @Test
     public void whenCreateUserAndFindByEmailAndPassword() {
         UserDbStore store = new UserDbStore(dataSource);
-        User user = new User(0, "m1@mail.ru", "1234");
+        User user = new User(0, "m1@mail.ru", "1234", "name1");
         user = store.add(user).orElse(null);
         User userInDb = store.findUserByEmailAndPassword(
                 user.getEmail(),
@@ -140,6 +151,6 @@ class UserDbStoreTest {
         assertThat(userInDb.getId()).isEqualTo(user.getId());
         assertThat(userInDb.getEmail()).isEqualTo(user.getEmail());
         assertThat(userInDb.getPassword()).isEqualTo(user.getPassword());
+        assertThat(userInDb.getName()).isEqualTo(user.getName());
     }
-
 }

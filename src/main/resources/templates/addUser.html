@@ -33,6 +33,14 @@
                 <a class="nav-item nav-link" th:href="@{/formAddCandidate}">Добавить кандидата</a>
                 <a class="nav-item nav-link" th:href="@{/cities}">Города</a>
                 <a class="nav-item nav-link" th:href="@{/formAddCity}">Добавить город</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -51,6 +59,10 @@
                     <div class="form-group">
                         <label for="password">пароль</label>
                         <input type="password" class="form-control" required name="password" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">имя</label>
+                        <input type="text" class="form-control" required name="name" id="name">
                     </div>
                     <button type="submit" class="btn btn-primary">Зарегать</button>
                 </form>

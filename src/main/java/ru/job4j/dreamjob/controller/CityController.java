@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.City;
+import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CityService;
+
+import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
@@ -21,13 +23,25 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public String cities(Model model) {
+    public String cities(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("cities", store.getAllCities());
         return "cities";
     }
 
     @GetMapping("/formAddCity")
-    public String addCity(Model model) {
+    public String addCity(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("city", new City(0, "Заполните название города"));
         return "addCity";
     }
@@ -39,7 +53,15 @@ public class CityController {
     }
 
     @GetMapping("/formUpdateCity/{cityId}")
-    public String formUpdateCity(Model model, @PathVariable("cityId") int id) {
+    public String formUpdateCity(Model model,
+                                 @PathVariable("cityId") int id,
+                                 HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "redirect:/cities";
     }
 
