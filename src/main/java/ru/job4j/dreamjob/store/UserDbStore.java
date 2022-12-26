@@ -7,6 +7,7 @@ import ru.job4j.dreamjob.model.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDbStore {
@@ -42,7 +43,8 @@ public class UserDbStore {
         return users;
     }
 
-    public User add(User user) {
+    public Optional<User> add(User user) {
+        Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
                      SQL_ADD, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -52,13 +54,13 @@ public class UserDbStore {
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
                     user.setId(id.getInt(1));
+                    result = Optional.of(user);
                 }
             }
         } catch (Exception e) {
             LOGGER.error("add user=" + user + ". " + e.getMessage(), e);
-            user = null;
         }
-        return user;
+        return result;
     }
 
     public void update(User user) {
@@ -74,20 +76,21 @@ public class UserDbStore {
         }
     }
 
-    public User findById(int id) {
+    public Optional<User> findById(int id) {
+        Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(SQL_FIND_BY_ID)
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return createUser(it);
+                    result = Optional.of(createUser(it));
                 }
             }
         } catch (Exception e) {
             LOGGER.error("find user by id=" + id + ". " + e.getMessage(), e);
         }
-        return null;
+        return result;
     }
 
     private User createUser(ResultSet it) throws SQLException {
