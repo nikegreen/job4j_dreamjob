@@ -63,16 +63,9 @@ public class PostController {
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post,
-                             @RequestParam("city.id") int id,
-                             HttpServletRequest req) {
+                             @RequestParam("city.id") int id) {
         post.setCity(cityService.findById(id));
         this.postService.add(post);
-        HttpSession session = req.getSession();
-        Optional<User> userDb = Optional.ofNullable((User) session.getAttribute("user"));
-        if (userDb.isEmpty()) {
-            userDb = Optional.of(new User(0, "", "", "Гость"));
-        }
-        session.setAttribute("user", userDb.get());
         return "redirect:/posts";
     }
 
@@ -95,16 +88,9 @@ public class PostController {
 
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post,
-                             @RequestParam("city.id") int id,
-                             HttpServletRequest req) {
+                             @RequestParam("city.id") int id) {
         post.setCity(cityService.findById(id));
         this.postService.update(post);
-        HttpSession session = req.getSession();
-        Optional<User> userDb = Optional.ofNullable((User) session.getAttribute("user"));
-        if (userDb.isEmpty()) {
-            userDb = Optional.of(new User(0, "", "", "Гость"));
-        }
-        session.setAttribute("user", userDb.get());
         return "redirect:/posts";
     }
 }
