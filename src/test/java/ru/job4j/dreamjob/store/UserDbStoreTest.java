@@ -127,4 +127,19 @@ class UserDbStoreTest {
         user2 = store.add(user2).orElse(null);
         assertThat(user2).isNull();
     }
+
+    @Test
+    public void whenCreateUserAndFindByEmailAndPassword() {
+        UserDbStore store = new UserDbStore(dataSource);
+        User user = new User(0, "m1@mail.ru", "1234");
+        user = store.add(user).orElse(null);
+        User userInDb = store.findUserByEmailAndPassword(
+                user.getEmail(),
+                user.getPassword()
+        ).orElse(null);
+        assertThat(userInDb.getId()).isEqualTo(user.getId());
+        assertThat(userInDb.getEmail()).isEqualTo(user.getEmail());
+        assertThat(userInDb.getPassword()).isEqualTo(user.getPassword());
+    }
+
 }

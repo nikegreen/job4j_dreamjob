@@ -19,6 +19,9 @@ public class UserDbStore {
             "UPDATE users SET email=?, password=? WHERE id = ?";
     private static final String SQL_FIND_BY_ID = "SELECT * FROM users WHERE id = ?";
 
+    private static final String SQL_FIND_BY_EMAIL_PASSWORD =
+            "SELECT * FROM users WHERE email = ? AND password = ?";
+
     private final BasicDataSource pool;
 
     public UserDbStore(BasicDataSource pool) {
@@ -99,5 +102,26 @@ public class UserDbStore {
                 it.getString("email"),
                 it.getString("password")
         );
+    }
+
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        Optional<User> result = Optional.empty();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(SQL_FIND_BY_EMAIL_PASSWORD)
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    result = Optional.of(createUser(it));
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(
+                    "find user by email=" + email
+                    + " and password = " + password
+                    + ". " + e.getMessage(), e);
+        }
+        return result;
     }
 }
