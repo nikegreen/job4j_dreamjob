@@ -24,12 +24,7 @@ public class IndexController {
      */
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         return "index";
     }
 }

@@ -32,12 +32,7 @@ public class CandidateController {
 
     @GetMapping("/candidates")
     public String candidates(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         model.addAttribute("candidates", candidateService.findAll());
         model.addAttribute("cities", cityService.getAllCities());
         return "candidates";
@@ -45,6 +40,7 @@ public class CandidateController {
 
     @GetMapping("/formAddCandidate")
     public String addCandidate(Model model, HttpSession session) {
+        model = ModelSet.fromSession(model, session);
         model.addAttribute(
                 "candidate",
                 new Candidate(
@@ -57,12 +53,6 @@ public class CandidateController {
                 )
         );
         model.addAttribute("cities", cityService.getAllCities());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         return "addCandidate";
     }
 
@@ -80,16 +70,11 @@ public class CandidateController {
     public String formUpdateCandidate(Model model,
                                       @PathVariable("candidateId") int id,
                                       HttpSession session) {
+        model = ModelSet.fromSession(model, session);
         Candidate candidate = candidateService.findById(id);
         model.addAttribute("candidate", candidate);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("city.id", candidate.getCity().getId());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         return "updateCandidate";
     }
 

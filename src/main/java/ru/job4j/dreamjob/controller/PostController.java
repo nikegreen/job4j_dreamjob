@@ -27,12 +27,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public String posts(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("posts", postService.findAll());
         return "posts";
@@ -40,6 +35,7 @@ public class PostController {
 
     @GetMapping("/formAddPost")
     public String addPost(Model model, HttpSession session) {
+        model = ModelSet.fromSession(model, session);
         model.addAttribute(
                 "post",
                 new Post(
@@ -52,12 +48,6 @@ public class PostController {
                 )
         );
         model.addAttribute("cities", cityService.getAllCities());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         return "addPost";
     }
 
@@ -73,16 +63,11 @@ public class PostController {
     public String formUpdatePost(Model model,
                                  @PathVariable("postId") int id,
                                  HttpSession session) {
+        model = ModelSet.fromSession(model, session);
         Post post = this.postService.findById(id);
         model.addAttribute("post", post);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("city.id", post.getCity().getId());
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         return "updatePost";
     }
 

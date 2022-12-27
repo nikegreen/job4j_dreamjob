@@ -24,24 +24,14 @@ public class CityController {
 
     @GetMapping("/cities")
     public String cities(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         model.addAttribute("cities", store.getAllCities());
         return "cities";
     }
 
     @GetMapping("/formAddCity")
     public String addCity(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         model.addAttribute("city", new City(0, "Заполните название города"));
         return "addCity";
     }
@@ -56,12 +46,7 @@ public class CityController {
     public String formUpdateCity(Model model,
                                  @PathVariable("cityId") int id,
                                  HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        model = ModelSet.fromSession(model, session);
         return "redirect:/cities";
     }
 
