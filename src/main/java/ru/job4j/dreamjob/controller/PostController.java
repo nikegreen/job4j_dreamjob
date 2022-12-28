@@ -4,13 +4,13 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 import org.springframework.ui.Model;
-import javax.servlet.http.HttpServletRequest;
+import ru.job4j.dreamjob.util.ModelSet;
+
 import javax.servlet.http.HttpSession;
 
 @ThreadSafe

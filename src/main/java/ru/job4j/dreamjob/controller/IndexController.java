@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
-import ru.job4j.dreamjob.model.User;
+import ru.job4j.dreamjob.util.ModelSet;
 
 /**
  * <p>IndexController class. Spring boot index controller</p>
